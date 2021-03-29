@@ -1,0 +1,25 @@
+int trig = 6;
+int echo = 5;
+int relay = 13;
+int tiempo;
+int distancia;
+void setup() {
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+  pinMode(relay, OUTPUT);
+}
+void loop() {
+  digitalWrite(relay, LOW);
+  digitalWrite(trig, HIGH);
+  delay(4000);
+  digitalWrite(trig, LOW);
+  tiempo = pulseIn(echo, HIGH);
+  distancia = tiempo / 58.2;
+  if (distancia < 15){
+    digitalWrite(relay, HIGH);
+    delay(2000);
+  }
+  else{
+    digitalWrite(relay, LOW);
+  }
+}
