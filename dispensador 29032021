@@ -23,3 +23,52 @@ void loop() {
     digitalWrite(relay, LOW);
   }
 }
+//
+
+// Nuevo Codigo actualizado //
+
+  
+int trig = 6; //Asiganmos el pin Trigger al pin 9 del Arduino
+int echo = 5; //Asiganmos el pin Echo al pin 8 del Arduino
+int relay = 13; //Asignamos el pin 13 del Arduino para controlar el LED
+
+void setup() {
+  Serial.begin (9600); //Se inica el puerto Serial
+  pinMode (trig, OUTPUT); //Configuramos el pin Trigger como un pin de salida
+  pinMode (echo, INPUT); //Configuramos el pin Echo como un pin de entrada
+  pinMode (relay, OUTPUT); //Configuramos el pin relay como un pin de salida
+}
+
+void loop() {
+
+  //Declaramos dos nuevas variables
+  long tiempo;
+  long distancia;
+
+  digitalWrite(trig, LOW); //El ciclo inicia con el pin Trigger apagado
+  delayMicroseconds(4); //Pasan 4 microsegundos
+  digitalWrite(trig, HIGH); //Luego de ese tiempo el pin Trigger se enciende
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+
+  tiempo = pulseIn(echo, HIGH); //El tiempo que el sonido tarda en llegar al receptor de eco es almacenado en la variable "tiempo"
+  tiempo = tiempo/2; //El pin Echo ha registrado el tiempo que tarda el sonido en ir y regresar, pero solo nos interesa la mitad del recorrido
+  distancia = tiempo / 29; //Fórmula para calcular la distancia
+
+//Mostrar distancia en el monitor serial
+  //Serial.print (distancia);
+  //Serial.println ("cm");
+  //delay (50);
+
+//Programación del relay
+  if (distancia <= 15 && distancia >=0) { //Si la distancia es menor o igual a 10cm el relay se encenderá
+    digitalWrite(relay, HIGH);
+    delay(1000);
+    digitalWrite(relay, LOW);
+    delay(1000);
+    
+  } else {
+    digitalWrite(relay, LOW);
+  }
+
+}
