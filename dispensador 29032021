@@ -61,7 +61,7 @@ void loop() {
   //delay (50);
 
 //Programación del relay
-  if (distancia <= 15 && distancia >=0) { //Si la distancia es menor o igual a 10cm el relay se encenderá
+  if (distancia <= 15 && distancia >=0) { //Si la distancia es menor o igual a 15cm el relay se encenderá
     digitalWrite(relay, HIGH);
     delay(1000);
     digitalWrite(relay, LOW);
